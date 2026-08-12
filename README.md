@@ -7,6 +7,8 @@
 ![Podgląd konfiguratora produktu 3D — scena Three.js z parametrami po prawej](docs/preview.svg)
 
 > 🇵🇱 **Praca AI-first (PL).** Ten starter zbudowałem z Claude Code — architektura sceny, decyzje o materiałach i obsłudze pamięci WebGL po mojej stronie, boilerplate Three.js i annotacje po stronie AI. Podział pracy człowiek/AI, weryfikacja i znane pułapki: [CLAUDE.md](CLAUDE.md). Konfiguracja agenta review: [.claude/commands/webgl-review.md](.claude/commands/webgl-review.md).
+>
+> 📝 **Read more (EN):** the workflow above is documented in detail — with side-by-side examples from this repo and four other public repos — in [How I document my AI-first workflow in every public repo](https://dev.to/gronskideveloper/how-i-document-my-ai-first-workflow-in-every-public-repo-4l0h) on Dev.to.
 
 A minimal, dependency-free **3D product configurator** built with [Three.js](https://threejs.org). It demonstrates the core pattern behind real e-commerce configurators: **parametric geometry**, live **material/color options**, dimension sliders, and a live spec/price readout — all in a single `index.html`.
 
