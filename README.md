@@ -12,7 +12,7 @@
 
 A minimal, dependency-free **3D product configurator** built with [Three.js](https://threejs.org). It demonstrates the core pattern behind real e-commerce configurators: **parametric geometry**, live **material/color options**, dimension sliders, and a live spec/price readout — all in a single `index.html`.
 
-Built and maintained by **[GroDev](https://grodev.pl)** — a studio that has shipped **9 production 3D configurators** for manufacturers.
+Built and maintained by **[GroDev](https://grodev.pl)** — a new studio building custom 3D configurators for manufacturers. Nine live demos across categories (pools, gates, packaging, awnings, canopies, saunas, illuminated signs, lamps, orangeries) showcase what the pattern can do; first paid deployments in progress.
 
 ## ▶️ Live demo
 
