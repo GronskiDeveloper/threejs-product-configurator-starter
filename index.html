@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Three.js Product Configurator — Starter (by GroDev)</title>
+<style>
+  :root { --bg:#0f0f12; --panel:#17171c; --line:#2a2a33; --fg:#e8e8ea; --muted:#9a9aa5; --accent:#B73D2C; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:system-ui,Segoe UI,Roboto,sans-serif; background:var(--bg); color:var(--fg); overflow:hidden; }
+  #app { display:flex; height:100vh; }
+  #canvas-wrap { flex:1; position:relative; }
+  canvas { display:block; }
+  #panel { width:300px; background:var(--panel); border-left:1px solid var(--line); padding:1.4rem; overflow-y:auto; }
+  h1 { font-size:1.05rem; margin:0 0 0.3rem; }
+  .sub { color:var(--muted); font-size:0.8rem; margin:0 0 1.4rem; line-height:1.5; }
+  .group { margin-bottom:1.3rem; }
+  .label { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:0.5rem; }
+  .swatches { display:flex; gap:0.5rem; flex-wrap:wrap; }
+  .sw { width:34px; height:34px; border-radius:6px; cursor:pointer; border:2px solid transparent; }
+  .sw.active { border-color:var(--fg); }
+  .opts { display:flex; gap:0.4rem; }
+  .opt { flex:1; padding:0.5rem; background:#20202a; border:1px solid var(--line); border-radius:6px; text-align:center; font-size:0.8rem; cursor:pointer; }
+  .opt.active { border-color:var(--accent); color:#fff; }
+  input[type=range] { width:100%; accent-color:var(--accent); }
+  .dim { display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:0.3rem; }
+  .price { margin-top:0.5rem; padding:1rem; background:#20202a; border-radius:8px; }
+  .price .amt { font-size:1.6rem; font-weight:600; }
+  .price .note { color:var(--muted); font-size:0.72rem; margin-top:0.4rem; line-height:1.4; }
+  .foot { margin-top:1.5rem; font-size:0.75rem; color:var(--muted); line-height:1.6; border-top:1px solid var(--line); padding-top:1rem; }
+  .foot a { color:var(--accent); }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="canvas-wrap"></div>
+  <div id="panel">
+    <h1>3D Configurator — Starter</h1>
+    <p class="sub">Minimal Three.js product configurator: parametric geometry, material/color options, live spec. A teaching starter by <a href="https://grodev.pl" style="color:#B73D2C">GroDev</a>.</p>
+
+    <div class="group">
+      <div class="label">Color</div>
+      <div class="swatches" id="colors"></div>
+    </div>
+
+    <div class="group">
+      <div class="label">Finish</div>
+      <div class="opts" id="finishes"></div>
+    </div>
+
+    <div class="group">
+      <div class="dim"><span class="label" style="margin:0">Width</span><span id="wVal">120 cm</span></div>
+      <input type="range" id="width" min="60" max="240" value="120" step="10">
+    </div>
+
+    <div class="group">
+      <div class="dim"><span class="label" style="margin:0">Height</span><span id="hVal">200 cm</span></div>
+      <input type="range" id="height" min="100" max="260" value="200" step="10">
+    </div>
+
+    <div class="price">
+      <div class="amt" id="price">—</div>
+      <div class="note">Demo price is computed client-side for illustration. In production, pricing lives server-side (editable by the client, not visible in the browser) — see the note in the README.</div>
+    </div>
+
+    <div class="foot">
+      Built by <a href="https://grodev.pl">grodev.pl</a> — 9 live production configurators:
+      <a href="https://basen3d.grodev.pl">pools</a>, <a href="https://brama3d.grodev.pl">gates</a>, <a href="https://pergola3d.grodev.pl">pergolas</a>, <a href="https://sauna3d.grodev.pl">saunas</a> and more.
+    </div>
+  </div>
+</div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// ---- State ----
+const state = {
+  color: '#8a8f98',
+  finish: 'matte',   // matte | gloss | metal
+  width: 120,        // cm
+  height: 200,       // cm
+};
+const COLORS = ['#8a8f98', '#2b2f36', '#B73D2C', '#c9a36a', '#3a5a40', '#e8e4da'];
+const FINISHES = { matte: {rough:0.85, metal:0.0}, gloss: {rough:0.15, metal:0.05}, metal: {rough:0.35, metal:0.9} };
+const BASE_PRICE = 400; // per m2, demo
+
+// ---- Scene ----
+const wrap = document.getElementById('canvas-wrap');
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0f0f12);
+const camera = new THREE.PerspectiveCamera(45, wrap.clientWidth / wrap.clientHeight, 0.1, 100);
+camera.position.set(2.6, 1.4, 3.2);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // mobile-friendly clamp
+renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+wrap.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.target.set(0, 1, 0);
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0x222233, 0.7));
+const key = new THREE.DirectionalLight(0xffffff, 1.6);
+key.position.set(3, 5, 4); scene.add(key);
+
+// ---- Parametric product (regenerated on dimension change) ----
+const material = new THREE.MeshStandardMaterial({ color: state.color });
+let mesh = null;
+function buildProduct() {
+  if (mesh) { mesh.geometry.dispose(); scene.remove(mesh); }
+  const w = state.width / 100, h = state.height / 100, d = 0.04;
+  const geo = new THREE.BoxGeometry(w, h, d);
+  mesh = new THREE.Mesh(geo, material);
+  mesh.position.y = h / 2;
+  scene.add(mesh);
+}
+function applyMaterial() {
+  material.color.set(state.color);
+  const f = FINISHES[state.finish];
+  material.roughness = f.rough;
+  material.metalness = f.metal;
+}
+function updatePrice() {
+  const area = (state.width / 100) * (state.height / 100); // m2
+  const finishMult = state.finish === 'metal' ? 1.35 : state.finish === 'gloss' ? 1.15 : 1.0;
+  const price = Math.round(area * BASE_PRICE * finishMult);
+  document.getElementById('price').textContent = price.toLocaleString('pl-PL') + ' PLN';
+}
+
+// ---- UI ----
+const colorsEl = document.getElementById('colors');
+COLORS.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'sw' + (c === state.color ? ' active' : '');
+  el.style.background = c;
+  el.onclick = () => { state.color = c; applyMaterial(); [...colorsEl.children].forEach(x => x.classList.remove('active')); el.classList.add('active'); };
+  colorsEl.appendChild(el);
+});
+const finishesEl = document.getElementById('finishes');
+Object.keys(FINISHES).forEach(f => {
+  const el = document.createElement('div');
+  el.className = 'opt' + (f === state.finish ? ' active' : '');
+  el.textContent = f;
+  el.onclick = () => { state.finish = f; applyMaterial(); updatePrice(); [...finishesEl.children].forEach(x => x.classList.remove('active')); el.classList.add('active'); };
+  finishesEl.appendChild(el);
+});
+document.getElementById('width').oninput = e => { state.width = +e.target.value; document.getElementById('wVal').textContent = state.width + ' cm'; buildProduct(); updatePrice(); };
+document.getElementById('height').oninput = e => { state.height = +e.target.value; document.getElementById('hVal').textContent = state.height + ' cm'; buildProduct(); updatePrice(); };
+
+// ---- Init ----
+buildProduct(); applyMaterial(); updatePrice();
+window.addEventListener('resize', () => {
+  camera.aspect = wrap.clientWidth / wrap.clientHeight; camera.updateProjectionMatrix();
+  renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+});
+(function animate() { requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); })();
+</script>
+</body>
+</html>
