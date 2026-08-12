@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-label="Podgląd konfiguratora produktu 3D — scena Three.js z parametrami po prawej">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f0c29"/>
+      <stop offset="0.55" stop-color="#302b63"/>
+      <stop offset="1" stop-color="#24243e"/>
+    </linearGradient>
+    <linearGradient id="obj" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1D9E75"/>
+      <stop offset="1" stop-color="#127055"/>
+    </linearGradient>
+    <linearGradient id="objTop" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2ecc94"/>
+      <stop offset="1" stop-color="#1D9E75"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="rgba(255,255,255,0.05)"/>
+      <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="720" fill="url(#bg)"/>
+
+  <!-- Grid -->
+  <g stroke="rgba(255,255,255,0.04)" stroke-width="1">
+    <path d="M0 200 H1200 M0 300 H1200 M0 400 H1200 M0 500 H1200 M0 600 H1200"/>
+    <path d="M100 0 V720 M300 0 V720 M500 0 V720 M700 0 V720 M900 0 V720"/>
+  </g>
+
+  <!-- Top bar -->
+  <rect x="0" y="0" width="1200" height="56" fill="rgba(255,255,255,0.03)"/>
+  <text x="32" y="35" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="13" fill="#7F77DD" letter-spacing="0.06em">// GRODEV.PL / KONFIGURATOR-PRODUKTOWY-3D</text>
+  <circle cx="1150" cy="28" r="6" fill="#5DCAA5"/>
+  <text x="1120" y="33" font-family="ui-sans-serif, -apple-system" font-size="12" fill="rgba(255,255,255,0.6)" text-anchor="end">LIVE</text>
+
+  <!-- 3D scene area -->
+  <g transform="translate(0, 56)">
+    <!-- Floor ellipse -->
+    <ellipse cx="440" cy="500" rx="280" ry="30" fill="url(#floor)"/>
+    <ellipse cx="440" cy="500" rx="280" ry="30" fill="none" stroke="rgba(93,202,165,0.15)" stroke-width="1"/>
+
+    <!-- Ambient glow -->
+    <ellipse cx="440" cy="330" rx="220" ry="220" fill="rgba(93,202,165,0.06)" filter="url(#glow)"/>
+
+    <!-- Parametric product mockup (isometric cube with softer edges) -->
+    <g transform="translate(440, 330)">
+      <!-- Right face -->
+      <path d="M 0 -100 L 130 -40 L 130 130 L 0 190 Z" fill="url(#obj)" opacity="0.95"/>
+      <!-- Left face (darker) -->
+      <path d="M 0 -100 L -130 -40 L -130 130 L 0 190 Z" fill="#0f6a51" opacity="0.9"/>
+      <!-- Top face (highlight) -->
+      <path d="M 0 -100 L 130 -40 L 0 20 L -130 -40 Z" fill="url(#objTop)"/>
+      <!-- Edge highlights -->
+      <path d="M 0 -100 L 130 -40 M 0 -100 L -130 -40 M 0 -100 L 0 20" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none"/>
+      <!-- Dimension arrows -->
+      <g stroke="rgba(255,255,255,0.35)" stroke-width="1" fill="rgba(255,255,255,0.35)" font-family="ui-monospace, monospace" font-size="10">
+        <line x1="-150" y1="-40" x2="-150" y2="130"/>
+        <text x="-160" y="50" text-anchor="end">180 cm</text>
+        <line x1="-130" y1="210" x2="130" y2="210"/>
+        <text x="0" y="228" text-anchor="middle">120 cm</text>
+      </g>
+    </g>
+
+    <!-- Camera hint -->
+    <g transform="translate(60, 550)" font-family="ui-monospace, monospace" font-size="10" fill="rgba(255,255,255,0.4)">
+      <text>OrbitControls · przeciągnij, aby obrócić</text>
+    </g>
+  </g>
+
+  <!-- Right panel -->
+  <g transform="translate(820, 100)">
+    <rect x="0" y="0" width="340" height="580" rx="14" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)"/>
+
+    <!-- Header -->
+    <text x="24" y="42" font-family="ui-sans-serif, -apple-system" font-size="20" fill="#ffffff" font-weight="600">Konfiguruj produkt</text>
+    <text x="24" y="66" font-family="ui-monospace, monospace" font-size="11" fill="#7F77DD">Parametry na żywo</text>
+
+    <!-- Slider: Width -->
+    <text x="24" y="108" font-family="ui-sans-serif, -apple-system" font-size="12" fill="rgba(255,255,255,0.7)">Szerokość</text>
+    <text x="316" y="108" font-family="ui-monospace, monospace" font-size="12" fill="#5DCAA5" text-anchor="end">120 cm</text>
+    <rect x="24" y="118" width="292" height="4" rx="2" fill="rgba(255,255,255,0.1)"/>
+    <rect x="24" y="118" width="176" height="4" rx="2" fill="#1D9E75"/>
+    <circle cx="200" cy="120" r="8" fill="#5DCAA5"/>
+
+    <!-- Slider: Height -->
+    <text x="24" y="158" font-family="ui-sans-serif, -apple-system" font-size="12" fill="rgba(255,255,255,0.7)">Wysokość</text>
+    <text x="316" y="158" font-family="ui-monospace, monospace" font-size="12" fill="#5DCAA5" text-anchor="end">180 cm</text>
+    <rect x="24" y="168" width="292" height="4" rx="2" fill="rgba(255,255,255,0.1)"/>
+    <rect x="24" y="168" width="234" height="4" rx="2" fill="#1D9E75"/>
+    <circle cx="258" cy="170" r="8" fill="#5DCAA5"/>
+
+    <!-- Slider: Depth -->
+    <text x="24" y="208" font-family="ui-sans-serif, -apple-system" font-size="12" fill="rgba(255,255,255,0.7)">Głębokość</text>
+    <text x="316" y="208" font-family="ui-monospace, monospace" font-size="12" fill="#5DCAA5" text-anchor="end">60 cm</text>
+    <rect x="24" y="218" width="292" height="4" rx="2" fill="rgba(255,255,255,0.1)"/>
+    <rect x="24" y="218" width="88" height="4" rx="2" fill="#1D9E75"/>
+    <circle cx="112" cy="220" r="8" fill="#5DCAA5"/>
+
+    <!-- Divider -->
+    <line x1="24" y1="256" x2="316" y2="256" stroke="rgba(255,255,255,0.08)"/>
+
+    <!-- Materials -->
+    <text x="24" y="286" font-family="ui-sans-serif, -apple-system" font-size="12" fill="rgba(255,255,255,0.7)">Wykończenie</text>
+    <g transform="translate(24, 302)">
+      <rect x="0" y="0" width="48" height="48" rx="6" fill="#1D9E75" stroke="#5DCAA5" stroke-width="2"/>
+      <rect x="60" y="0" width="48" height="48" rx="6" fill="#7F77DD"/>
+      <rect x="120" y="0" width="48" height="48" rx="6" fill="#EF9F27"/>
+      <rect x="180" y="0" width="48" height="48" rx="6" fill="#E53E3E"/>
+      <rect x="240" y="0" width="48" height="48" rx="6" fill="rgba(255,255,255,0.15)"/>
+    </g>
+
+    <!-- Divider -->
+    <line x1="24" y1="380" x2="316" y2="380" stroke="rgba(255,255,255,0.08)"/>
+
+    <!-- Price -->
+    <text x="24" y="418" font-family="ui-monospace, monospace" font-size="11" fill="#7F77DD">// WYCENA NA ŻYWO</text>
+    <text x="24" y="466" font-family="ui-sans-serif, -apple-system" font-size="36" fill="#ffffff" font-weight="700">2 890 zł</text>
+    <text x="24" y="490" font-family="ui-sans-serif, -apple-system" font-size="12" fill="rgba(255,255,255,0.5)">brutto · dostawa 14 dni</text>
+
+    <!-- CTA -->
+    <rect x="24" y="516" width="292" height="44" rx="10" fill="#1D9E75"/>
+    <text x="170" y="544" font-family="ui-sans-serif, -apple-system" font-size="14" fill="#ffffff" font-weight="600" text-anchor="middle">Dodaj do koszyka</text>
+  </g>
+
+  <!-- Bottom footer -->
+  <g transform="translate(0, 690)">
+    <text x="32" y="0" font-family="ui-monospace, monospace" font-size="11" fill="rgba(255,255,255,0.4)">threejs-product-configurator-starter · MIT · @GronskiDeveloper</text>
+    <text x="1168" y="0" font-family="ui-monospace, monospace" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="end">Three.js · vanilla JS · zero build</text>
+  </g>
+</svg>

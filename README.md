@@ -2,6 +2,10 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-1D9E75.svg?style=flat-square)](LICENSE) [![Made with Three.js](https://img.shields.io/badge/Three.js-WebGL-000000?style=flat-square&logo=three.js&logoColor=white)](https://threejs.org) [![Live demo](https://img.shields.io/badge/Live-demo-1D9E75?style=flat-square&logo=githubpages&logoColor=white)](https://gronskideveloper.github.io/threejs-product-configurator-starter/) [![GroDev](https://img.shields.io/badge/by-GroDev-534AB7?style=flat-square)](https://grodev.pl/konfigurator-produktowy-3d)
 
+
+
+![Podgląd konfiguratora produktu 3D — scena Three.js z parametrami po prawej](docs/preview.svg)
+
 > 🇵🇱 **Praca AI-first (PL).** Ten starter zbudowałem z Claude Code — architektura sceny, decyzje o materiałach i obsłudze pamięci WebGL po mojej stronie, boilerplate Three.js i annotacje po stronie AI. Podział pracy człowiek/AI, weryfikacja i znane pułapki: [CLAUDE.md](CLAUDE.md). Konfiguracja agenta review: [.claude/commands/webgl-review.md](.claude/commands/webgl-review.md).
 
 A minimal, dependency-free **3D product configurator** built with [Three.js](https://threejs.org). It demonstrates the core pattern behind real e-commerce configurators: **parametric geometry**, live **material/color options**, dimension sliders, and a live spec/price readout — all in a single `index.html`.
