@@ -1,5 +1,8 @@
 # Three.js Product Configurator — Starter
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-1D9E75.svg?style=flat-square)](LICENSE) [![Made with Three.js](https://img.shields.io/badge/Three.js-WebGL-000000?style=flat-square&logo=three.js&logoColor=white)](https://threejs.org) [![Live demo](https://img.shields.io/badge/Live-demo-1D9E75?style=flat-square&logo=githubpages&logoColor=white)](https://gronskideveloper.github.io/threejs-product-configurator-starter/) [![GroDev](https://img.shields.io/badge/by-GroDev-534AB7?style=flat-square)](https://grodev.pl/konfigurator-produktowy-3d)
+
+
 A minimal, dependency-free **3D product configurator** built with [Three.js](https://threejs.org). It demonstrates the core pattern behind real e-commerce configurators: **parametric geometry**, live **material/color options**, dimension sliders, and a live spec/price readout — all in a single `index.html`.
 
 Built and maintained by **[GroDev](https://grodev.pl)** — a studio that has shipped **9 production 3D configurators** for manufacturers.
