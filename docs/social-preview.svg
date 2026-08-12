@@ -18,34 +18,34 @@
   <circle cx="80" cy="580" r="240" fill="#7F77DD" opacity="0.06"/>
 
   <!-- Top tag -->
-  <rect x="60" y="80" width="140" height="30" rx="6" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
-  <text x="130" y="100" font-family="ui-monospace, monospace" font-size="12" fill="rgba(255,255,255,0.7)" text-anchor="middle" letter-spacing="0.08em">GITHUB · GRODEV</text>
+  <rect x="60" y="80" width="140" height="30" rx="6" fill="#241f4a" stroke="#3d3670"/>
+  <text x="130" y="100" font-family="'Courier New', Courier, monospace" font-size="12" fill="#ffffff" fill-opacity="0.7" text-anchor="middle" letter-spacing="0.08em">GITHUB · GRODEV</text>
 
   <!-- Repo name (mono) -->
-  <text x="60" y="180" font-family="ui-monospace, 'JetBrains Mono', monospace" font-size="30" fill="#1D9E75" font-weight="600">threejs-product-configurator-starter</text>
+  <text x="60" y="180" font-family="'Courier New', Courier, monospace" font-size="30" fill="#1D9E75" font-weight="600">threejs-product-configurator-starter</text>
 
   <!-- Title -->
-  <text x="60" y="280" font-family="ui-sans-serif, -apple-system" font-size="60" fill="#ffffff" font-weight="800" letter-spacing="-0.02em">Konfigurator produktu 3D</text>
+  <text x="60" y="280" font-family="Arial, Helvetica, sans-serif" font-size="60" fill="#ffffff" font-weight="800" letter-spacing="-0.02em">Konfigurator produktu 3D</text>
 
   <!-- Tagline -->
-  <text x="60" y="380" font-family="ui-sans-serif, -apple-system" font-size="28" fill="rgba(255,255,255,0.75)" font-weight="400">Minimalny starter Three.js — parametry, wykończenie, wycena na żywo</text>
+  <text x="60" y="380" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#ffffff" fill-opacity="0.75" font-weight="400">Minimalny starter Three.js — parametry, wykończenie, wycena na żywo</text>
 
   <!-- Divider -->
-  <line x1="60" y1="450" x2="1140" y2="450" stroke="rgba(255,255,255,0.08)"/>
+  <line x1="60" y1="450" x2="1140" y2="450" stroke="#302a5c"/>
 
   <!-- Bottom row: stack + author -->
-  <text x="60" y="500" font-family="ui-monospace, monospace" font-size="18" fill="rgba(255,255,255,0.5)">Three.js · WebGL · Vanilla JS · MIT</text>
+  <text x="60" y="500" font-family="'Courier New', Courier, monospace" font-size="18" fill="#ffffff" fill-opacity="0.5">Three.js · WebGL · Vanilla JS · MIT</text>
 
   <g transform="translate(60, 545)">
     <circle cx="18" cy="18" r="18" fill="#1D9E75"/>
-    <text x="18" y="24" font-family="ui-sans-serif" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">D</text>
-    <text x="52" y="16" font-family="ui-sans-serif" font-size="16" fill="#ffffff" font-weight="600">Dominik Groński · GroDev</text>
-    <text x="52" y="36" font-family="ui-monospace, monospace" font-size="12" fill="rgba(255,255,255,0.5)">github.com/GronskiDeveloper · grodev.pl</text>
+    <text x="18" y="24" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">D</text>
+    <text x="52" y="16" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#ffffff" font-weight="600">Dominik Groński · GroDev</text>
+    <text x="52" y="36" font-family="'Courier New', Courier, monospace" font-size="12" fill="#ffffff" fill-opacity="0.5">github.com/GronskiDeveloper · grodev.pl</text>
   </g>
 
   <!-- AI-first badge -->
   <g transform="translate(940, 545)">
-    <rect x="0" y="0" width="200" height="40" rx="20" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
-    <text x="100" y="26" font-family="ui-sans-serif" font-size="14" fill="#ffffff" font-weight="600" text-anchor="middle">🇵🇱 AI-first · CLAUDE.md</text>
+    <rect x="0" y="0" width="200" height="40" rx="20" fill="#241f4a" stroke="#3d3670"/>
+    <text x="100" y="26" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#ffffff" font-weight="600" text-anchor="middle">🇵🇱 AI-first · CLAUDE.md</text>
   </g>
 </svg>
