@@ -1,31 +1,31 @@
-# AI workflow notes — Three.js product configurator starter
+# Praca AI-first — notatki dla tego repo
 
-Kept in the repo because I build with Claude Code (Anthropic) and want the AI/human split on every project to be legible from the source tree, not just claimed in a README.
+Trzymam ten plik w repozytorium, ponieważ buduję z Claude Code (Anthropic) i chcę, żeby podział „człowiek/AI" był widoczny z drzewa plików, a nie deklarowany w README. Rekruter, klient albo kolega z zespołu ma tu dowody, nie ogólniki.
 
-## Human vs AI split on this repo
+## Podział pracy człowiek vs AI
 
-| Layer | Who did it | Why |
+| Warstwa | Kto zrobił | Dlaczego tak |
 |---|---|---|
-| Architecture & scope decision | **Human** — decided this was a *starter* (single-file, importmap, no build step) rather than a framework. The whole point is that a developer can `open index.html` and see it work. | Wrong shape here would kill the "wow in 5 seconds" this repo exists for. Not delegable. |
-| Three.js scene setup (renderer, camera, OrbitControls, lighting) | **AI-drafted, human-reviewed** | This is boilerplate Claude writes correctly; my job was to pick the right lighting rig for material previews and reject the default 3-point that hides material response. |
-| Parametric geometry + live-updating dimensions | **Human-designed, AI-coded** | Data flow (state → rebuild mesh → recompute price) was mine; the loop that disposes old geometry to prevent memory leaks was Claude. |
-| UI (control panel, price readout) | **AI-drafted, human-styled** | Kept it dependency-free vanilla JS on purpose — no React, no Tailwind — so anyone can fork and drop into a WordPress theme. |
-| README + backlinks to grodev.pl | **Human** | Marketing decisions belong to me. |
+| Architektura i decyzja o formacie | **Człowiek** — zdecydowałem, że to *starter* (jeden plik, importmap, bez build stepu), a nie framework. Cały sens tego repo to „otwórz `index.html`, działa". | Zła forma tutaj zabija „wow w 5 sekund". Nie do zlecenia AI. |
+| Setup sceny Three.js (renderer, kamera, OrbitControls, oświetlenie) | **Draft AI, weryfikacja człowieka** | To boilerplate, który Claude pisze poprawnie; moim zadaniem było dobrać rig oświetlenia pod podgląd materiałów i odrzucić standardowe 3-punktowe, które maskuje reakcję materiału. |
+| Parametryczna geometria + wycena na żywo | **Design człowieka, kod AI** | Flow danych (stan → przebudowa mesha → przeliczenie ceny) mój; pętla dispose'ująca starą geometrię (żeby uniknąć memory leaka WebGL) — Claude. |
+| UI (panel kontrolek, licznik ceny) | **Draft AI, style człowieka** | Trzymałem dependency-free vanilla JS na siłę — bez Reacta, bez Tailwinda — żeby dało się to sforkować i wrzucić do motywu WordPress. |
+| README + backlinki do grodev.pl | **Człowiek** | Decyzje marketingowe zostają u mnie. |
 
-## Verification I ran before pushing
+## Co zweryfikowałem przed wypchnięciem
 
-- Manually opened `index.html` in Chrome + Firefox — no console errors, no CORS issues from the importmap.
-- Resized the geometry in the DevTools console (`window.state.width = 3.5; update()`) to confirm no stale references between rebuilds.
-- Ran GitHub Pages build — verified it serves without a build step (that's the point).
+- Otworzyłem `index.html` w Chrome + Firefox — bez błędów w konsoli, bez problemów CORS z importmapy.
+- Podmieniłem parametry w konsoli DevTools (`window.state.width = 3.5; update()`) — potwierdziłem, że nie ma martwych referencji między przebudowami.
+- Odpalony build GitHub Pages — potwierdziłem, że działa bez build stepu (o to chodzi).
 
-## Known gotchas for the next AI edit
+## Znane pułapki dla następnej iteracji AI
 
-- **Do not add a bundler.** The importmap + `<script type="module">` is the entire pitch. If Claude suggests Vite/webpack, reject.
-- **Do not switch OrbitControls to TrackballControls** — TrackballControls has no auto-inertia stop, feels drunk on touch devices.
-- **Dispose geometry before replacing** (`old.geometry.dispose()`) — WebGL context leaks otherwise, browser tab hits ~500 MB after 20 config changes.
-- Material color updates must be `.set(hex)` on the existing `MeshStandardMaterial`, **not** a new material assignment (breaks fog and shadow bindings).
+- **Nie dodawać bundlera.** Importmapa + `<script type="module">` to cały pomysł. Jeśli Claude zasugeruje Vite/webpack — odrzucić.
+- **Nie zamieniać OrbitControls na TrackballControls** — TrackballControls nie ma auto-inertia stop, na urządzeniach dotykowych zachowuje się jak pijany.
+- **Dispose'ować geometrię przed podmianą** (`old.geometry.dispose()`) — inaczej context WebGL cieknie, karta browsera dobija do ~500 MB po 20 zmianach konfiguracji.
+- Aktualizacje koloru materiału muszą być przez `.set(hex)` na istniejącym `MeshStandardMaterial`, **nie** przez przypisanie nowego materiału (psuje fog i binding cieni).
 
-## When to reach for Claude on this project vs code it yourself
+## Kiedy sięgać po Claude na tym projekcie, a kiedy pisać samodzielnie
 
-- **Reach for Claude:** any new preset (a different product shape — desk, planter, lamp), any new material type (glass, brushed metal), a new export format.
-- **Do it yourself:** any change to the price-calculation logic. Pricing is a business rule; letting an AI improvise it is how you ship a bug that costs you a real customer.
+- **Sięgnąć po Claude:** nowy preset (inny kształt produktu — biurko, doniczka, lampa), nowy typ materiału (szkło, szczotkowany metal), nowy format eksportu.
+- **Zrobić samodzielnie:** cokolwiek dotykającego logiki wyceny. Ceny to reguła biznesowa; pozwolenie AI na improwizację tam to sposób na wypuszczenie buga, który kosztuje prawdziwego klienta.
