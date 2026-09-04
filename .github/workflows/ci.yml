@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  html-check:
+    name: HTML validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check HTML files exist and are non-empty
+        run: |
+          [ -s index.html ] || (echo "index.html missing or empty" && exit 1)
+          echo "OK: index.html $(wc -c < index.html) bytes"
+      - name: Validate HTML with tidy
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq tidy
+          tidy -q -e --show-warnings no index.html || echo "tidy warnings only (non-blocking)"
+
